@@ -13,6 +13,10 @@
     font-family:Inter,system-ui,sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     background:#0a0a0a;
     color:white;
@@ -35,6 +39,7 @@ nav{
 .logo{
     font-size:1.3rem;
     font-weight:700;
+    letter-spacing:1px;
 }
 
 .links a{
@@ -64,7 +69,7 @@ nav{
 .hero p{
     font-size:1.2rem;
     color:#aaa;
-    max-width:650px;
+    max-width:700px;
 }
 
 .btns{
@@ -79,6 +84,7 @@ nav{
     border-radius:12px;
     text-decoration:none;
     font-weight:600;
+    transition:.3s;
 }
 
 .primary{
@@ -86,9 +92,17 @@ nav{
     color:black;
 }
 
+.primary:hover{
+    transform:translateY(-2px);
+}
+
 .secondary{
     border:1px solid #333;
     color:white;
+}
+
+.secondary:hover{
+    border-color:#666;
 }
 
 .section{
@@ -98,6 +112,11 @@ nav{
 .section h2{
     font-size:2.5rem;
     margin-bottom:20px;
+}
+
+.section p{
+    color:#999;
+    max-width:700px;
 }
 
 .cards{
@@ -112,6 +131,12 @@ nav{
     border:1px solid #222;
     padding:24px;
     border-radius:18px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#333;
 }
 
 .card h3{
@@ -124,12 +149,12 @@ nav{
 
 .quote{
     text-align:center;
-    padding:100px 20px;
+    padding:120px 20px;
 }
 
 .quote h2{
     font-size:clamp(2rem,5vw,4rem);
-    max-width:800px;
+    max-width:850px;
     margin:auto;
 }
 
@@ -141,13 +166,26 @@ footer{
 }
 
 @media(max-width:700px){
+
     nav{
         flex-direction:column;
         gap:15px;
     }
 
+    .links{
+        text-align:center;
+    }
+
     .links a{
         margin:0 10px;
+    }
+
+    .hero{
+        min-height:75vh;
+    }
+
+    .section{
+        padding:70px 0;
     }
 }
 </style>
@@ -158,61 +196,106 @@ footer{
 <div class="container">
 
 <nav>
-<div class="logo"> AKIN </div>
+<div class="logo">AKIN</div>
 
 <div class="links">
-<a href="https://www.youtube.com/@The_Akin_Project">Youtube</a>
+<a href="https://www.youtube.com/@The_Akin_Project">YouTube</a>
 <a href="https://www.linkedin.com/in/akin-founder">LinkedIn</a>
-<a href="https://github.com/ByAkin">Github</a>
+<a href="https://github.com/ByAkin">GitHub</a>
 </div>
 </nav>
 
 <section class="hero">
-<h1>Learn. Build. Adapt.</h1>
+<h1>Building My Future In Public.</h1>
 
 <p>
-I'm Akin.
-A 16-year-old creator documenting the journey of becoming successful through learning, building, smart decisions, and consistent action.
+I'm Akin, a 16-year-old exploring business, technology, self-improvement,
+and creative projects while documenting the journey. No fake expertise.
+Just learning, building, adapting, and sharing what happens along the way.
 </p>
 
 <div class="btns">
-<a href="https://www.youtube.com/@The_Akin_Project" class="btn primary">Watch Journey</a>
-<a href="https://www.linkedin.com/in/akin-founder" class="btn secondary">Connect</a>
+<a href="https://www.youtube.com/@The_Akin_Project" class="btn primary">
+Watch Journey
+</a>
+
+<a href="https://www.linkedin.com/in/akin-founder" class="btn secondary">
+Connect
+</a>
 </div>
 </section>
 
 <section class="section">
 <h2>Mission</h2>
 
-<p style="color:#999; max-width:700px;">
-The Akin Project exists to explore ideas about growth, business,
-technology, decision-making, and personal development while documenting
-the process in public.
+<p>
+The Akin Project exists to document growth in public. Through learning,
+building, experimenting, and reflecting, the goal is to discover what
+works, share useful ideas, and become a little better every day.
 </p>
 
 <div class="cards">
 
 <div class="card">
 <h3>🎯 Growth</h3>
-<p>Learning faster and improving every day.</p>
+<p>Improving through consistent action and continuous learning.</p>
 </div>
 
 <div class="card">
 <h3>🚀 Building</h3>
-<p>Creating projects and sharing the lessons.</p>
+<p>Turning ideas into reality and learning from the process.</p>
 </div>
 
 <div class="card">
 <h3>🧠 Thinking</h3>
-<p>Making smarter decisions and adapting to change.</p>
+<p>Making better decisions, adapting to change, and staying curious.</p>
 </div>
 
 </div>
 </section>
 
+<section class="section">
+<h2>Current Focus</h2>
+
+<p>
+Right now I'm focused on creating content, learning valuable skills,
+exploring opportunities, and documenting lessons from the journey.
+</p>
+
+<div class="cards">
+
+<div class="card">
+<h3>📹 Content</h3>
+<p>Sharing ideas, experiences, and lessons through videos and posts.</p>
+</div>
+
+<div class="card">
+<h3>📚 Learning</h3>
+<p>Studying business, technology, communication, and personal growth.</p>
+</div>
+
+<div class="card">
+<h3>🌱 Experimenting</h3>
+<p>Trying new ideas, testing assumptions, and learning by doing.</p>
+</div>
+
+</div>
+</section>
+
+<section class="section">
+<h2>What Is The Akin Project?</h2>
+
+<p>
+The Akin Project is a long-term experiment. A place to document the
+journey of building skills, exploring opportunities, making mistakes,
+and sharing lessons publicly. The destination isn't completely clear
+yet—and that's part of the project.
+</p>
+</section>
+
 <section class="quote">
 <h2>
-"Start before you're ready."
+"The goal isn't to have all the answers. The goal is to keep moving."
 </h2>
 </section>
 
