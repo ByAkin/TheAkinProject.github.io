@@ -338,6 +338,26 @@ footer{
     opacity:1;
     transform:translateY(0);
 }
+
+    .heatmap{
+    display:grid;
+    grid-template-columns:repeat(7,12px);
+    gap:6px;
+    justify-content:center;
+    margin:15px 0;
+}
+
+.cell{
+    width:12px;
+    height:12px;
+    border-radius:3px;
+    background:rgba(255,255,255,0.08);
+}
+
+.cell.active{
+    background:var(--accent);
+    box-shadow:0 0 10px var(--accent);
+}
     
 </style>
 </head>
