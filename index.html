@@ -732,6 +732,70 @@ if(window.innerWidth > 700){
   document.addEventListener('mouseleave', () => { mouse.x=-9999; mouse.y=-9999; });
 }
 </script>
+
+    <script>
+// ⚠️ Replace this URL with your actual Vercel URL after deploying
+const VERCEL_URL = 'https://akin-api.vercel.app';
+
+function aiTab(name,btn){
+    document.querySelectorAll('.ai-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.ai-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('ai-panel-'+name).classList.add('active');
+}
+function aiSetLoading(btnId,loading,label){
+    const btn=document.getElementById(btnId);
+    if(loading){btn.disabled=true;btn.innerHTML='<div class="ai-spinner"></div><span>Thinking...</span>';}
+    else{btn.disabled=false;btn.innerHTML='<span>'+label+'</span>';}
+}
+function aiSetOutput(outId,labelText,text){
+    const out=document.getElementById(outId);
+    out.innerHTML='<div class="ai-output-label">'+labelText+'</div><div class="ai-output-text">'+text+'</div><button class="ai-copy-btn" onclick="aiCopy(this)">Copy</button>';
+}
+function aiCopy(btn){
+    navigator.clipboard.writeText(btn.previousElementSibling.innerText).then(()=>{
+        btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',1500);
+    });
+}
+async function aiCall(systemPrompt,userPrompt){
+    try{
+        const res=await fetch(VERCEL_URL+'/api/chat',{
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({systemPrompt,userPrompt})
+        });
+        if(!res.ok){const e=await res.json().catch(()=>({}));return'Error: '+(e.error||res.status);}
+        const data=await res.json();
+        return data.result||'No response.';
+    }catch(e){return'Network error: '+e.message;}
+}
+async function aiRunChat(){
+    const q=document.getElementById('ai-chat-q').value.trim();
+    if(!q)return;
+    aiSetLoading('ai-chat-btn',true,'Ask');
+    const sys='You are the AI assistant for The Akin Project — a community for ambitious beginners to learn, build, and grow together. Be warm, direct, and encouraging. Keep answers concise and actionable. No markdown formatting.';
+    aiSetOutput('ai-chat-out','Answer',await aiCall(sys,q));
+    aiSetLoading('ai-chat-btn',false,'Ask');
+}
+async function aiRunProject(){
+    const skill=document.getElementById('ai-proj-skill').value.trim()||'general tech';
+    const level=document.getElementById('ai-proj-level').value;
+    const goal=document.getElementById('ai-proj-goal').value.trim();
+    aiSetLoading('ai-proj-btn',true,'Generate Ideas');
+    const sys='Give exactly 3 beginner project ideas. For each: punchy name, what it is, what they learn, why it matters. Plain text only, no markdown.';
+    aiSetOutput('ai-proj-out','Project Ideas',await aiCall(sys,`Skill: ${skill}\nLevel: ${level}\nGoal: ${goal||'learn and build'}`));
+    aiSetLoading('ai-proj-btn',false,'Generate Ideas');
+}
+async function aiRunRoadmap(){
+    const topic=document.getElementById('ai-road-topic').value.trim()||'programming';
+    const time=document.getElementById('ai-road-time').value;
+    const level=document.getElementById('ai-road-level').value;
+    aiSetLoading('ai-road-btn',true,'Build My Roadmap');
+    const sys='Create a clear 4-week beginner learning roadmap. Each week: what to learn, one free resource, what to build. Plain text only, no markdown.';
+    aiSetOutput('ai-road-out','Your Roadmap',await aiCall(sys,`Topic: ${topic}\nTime/week: ${time}\nLevel: ${level}`));
+    aiSetLoading('ai-road-btn',false,'Build My Roadmap');
+}
+</script>
     
 </body>
 </html>
