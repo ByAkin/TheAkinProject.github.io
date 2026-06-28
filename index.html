@@ -366,6 +366,36 @@ footer{
 }
 
     .container { position: relative; z-index: 1; }
+
+    /* AI TOOLS SECTION */
+.ai-section{width:88%;max-width:1000px;margin:0 auto 100px;text-align:center;}
+.ai-section h2{font-size:clamp(2rem,5vw,3rem);margin-bottom:10px;color:white;}
+.ai-section>p{color:#888;margin-bottom:36px;font-size:0.95rem;}
+.ai-tabs{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;}
+.ai-tab{padding:10px 22px;border-radius:10px;border:1px solid #222;background:transparent;color:#888;cursor:pointer;font-size:0.9rem;font-weight:600;transition:all 0.25s;font-family:Inter,system-ui,sans-serif;}
+.ai-tab.active{background:#B6D800;color:#000;border-color:#B6D800;}
+.ai-tab:hover:not(.active){border-color:#B6D800;color:#B6D800;}
+.ai-panel{display:none;text-align:left;}
+.ai-panel.active{display:block;}
+.ai-input-box{background:#111;border:1px solid #222;border-radius:16px;padding:22px;margin-bottom:16px;}
+.ai-input-box label{font-size:11px;color:#888;display:block;margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;}
+.ai-input-box input,.ai-input-box textarea,.ai-input-box select{width:100%;background:#0a0a0a;border:1px solid #333;border-radius:8px;padding:10px 14px;color:white;font-size:0.9rem;font-family:Inter,system-ui,sans-serif;outline:none;transition:border-color 0.2s;resize:vertical;}
+.ai-input-box input:focus,.ai-input-box textarea:focus,.ai-input-box select:focus{border-color:#B6D800;}
+.ai-input-box select option{background:#111;}
+.ai-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:560px){.ai-row{grid-template-columns:1fr;}}
+.ai-field{margin-bottom:14px;}
+.ai-run-btn{background:#B6D800;color:#000;border:none;padding:12px 28px;border-radius:10px;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.2s;font-family:Inter,system-ui,sans-serif;display:flex;align-items:center;gap:8px;margin-top:4px;}
+.ai-run-btn:hover{transform:translateY(-2px);opacity:0.9;}
+.ai-run-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;}
+.ai-output{background:#111;border:1px solid #222;border-radius:16px;padding:22px;min-height:130px;}
+.ai-output-label{font-size:11px;letter-spacing:1px;color:#B6D800;margin-bottom:12px;text-transform:uppercase;}
+.ai-output-text{color:#ccc;font-size:0.9rem;line-height:1.8;white-space:pre-wrap;}
+.ai-placeholder{color:#444;font-style:italic;}
+.ai-copy-btn{background:transparent;border:1px solid #333;color:#888;padding:6px 14px;border-radius:7px;font-size:12px;cursor:pointer;margin-top:12px;font-family:Inter,system-ui,sans-serif;transition:all 0.2s;}
+.ai-copy-btn:hover{border-color:#B6D800;color:#B6D800;}
+.ai-spinner{width:16px;height:16px;border:2px solid #0004;border-top-color:#000;border-radius:50%;animation:ai-spin 0.7s linear infinite;}
+@keyframes ai-spin{to{transform:rotate(360deg);}}
     
 </style>
 </head>
@@ -512,6 +542,94 @@ Every expert was once a beginner.
 
 </div>
 
+    </div>
+</section>
+
+    <!-- AI TOOLS SECTION -->
+<section class="ai-section reveal">
+    <span class="status-tag">AI POWERED</span>
+    <h2>Your AI Starter Kit</h2>
+    <p>Three free tools to help you find your path, pick a project, and get moving.</p>
+
+    <div class="ai-tabs">
+        <button class="ai-tab active" onclick="aiTab('chat',this)">💬 Community Assistant</button>
+        <button class="ai-tab" onclick="aiTab('project',this)">🚀 Project Ideas</button>
+        <button class="ai-tab" onclick="aiTab('roadmap',this)">🗺️ Learning Roadmap</button>
+    </div>
+
+    <div class="ai-panel active" id="ai-panel-chat">
+        <div class="ai-input-box">
+            <div class="ai-field">
+                <label>Your Question</label>
+                <textarea id="ai-chat-q" rows="3" placeholder="What should I build first? How do I join?"></textarea>
+            </div>
+            <button class="ai-run-btn" id="ai-chat-btn" onclick="aiRunChat()"><span>Ask</span></button>
+        </div>
+        <div class="ai-output" id="ai-chat-out">
+            <div class="ai-output-label">Answer</div>
+            <div class="ai-output-text ai-placeholder">Your answer will appear here...</div>
+        </div>
+    </div>
+
+    <div class="ai-panel" id="ai-panel-project">
+        <div class="ai-input-box">
+            <div class="ai-row">
+                <div>
+                    <label>Your Interest or Skill</label>
+                    <input id="ai-proj-skill" placeholder="e.g. coding, design, AI, writing"/>
+                </div>
+                <div>
+                    <label>Experience Level</label>
+                    <select id="ai-proj-level">
+                        <option>Complete beginner</option>
+                        <option>Some experience</option>
+                        <option>Intermediate</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ai-field">
+                <label>Your Goal (optional)</label>
+                <input id="ai-proj-goal" placeholder="e.g. earn money, build a portfolio"/>
+            </div>
+            <button class="ai-run-btn" id="ai-proj-btn" onclick="aiRunProject()"><span>Generate Ideas</span></button>
+        </div>
+        <div class="ai-output" id="ai-proj-out">
+            <div class="ai-output-label">Project Ideas</div>
+            <div class="ai-output-text ai-placeholder">3 project ideas tailored to you will appear here...</div>
+        </div>
+    </div>
+
+    <div class="ai-panel" id="ai-panel-roadmap">
+        <div class="ai-input-box">
+            <div class="ai-row">
+                <div>
+                    <label>What Do You Want to Learn?</label>
+                    <input id="ai-road-topic" placeholder="e.g. web development, AI, design"/>
+                </div>
+                <div>
+                    <label>Time Available Per Week</label>
+                    <select id="ai-road-time">
+                        <option>1–2 hours</option>
+                        <option>3–5 hours</option>
+                        <option>5–10 hours</option>
+                        <option>10+ hours</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ai-field">
+                <label>Your Current Level</label>
+                <select id="ai-road-level">
+                    <option>Complete beginner — never done this before</option>
+                    <option>Tried a few things but got lost</option>
+                    <option>Know the basics, want to go deeper</option>
+                </select>
+            </div>
+            <button class="ai-run-btn" id="ai-road-btn" onclick="aiRunRoadmap()"><span>Build My Roadmap</span></button>
+        </div>
+        <div class="ai-output" id="ai-road-out">
+            <div class="ai-output-label">Your Roadmap</div>
+            <div class="ai-output-text ai-placeholder">A 4-week step-by-step plan will appear here...</div>
+        </div>
     </div>
 </section>
     
