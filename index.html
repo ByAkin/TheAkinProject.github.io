@@ -514,7 +514,7 @@ Every expert was once a beginner.
 
         <div class="status-card">
             <h3>Day</h3>
-            <p>6</p>
+            <p id="community-day"></p>
         </div>
 
         <div class="status-card">
@@ -676,6 +676,11 @@ function revealOnScroll(){
 
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
+
+        const startDate = new Date('2026-06-23'); // the day you launched
+const today = new Date();
+const day = Math.floor((today - startDate) / (1000 * 60 * 60 * 24)) + 1;
+document.getElementById('community-day').textContent = day;
 </script>
 
 
@@ -774,7 +779,7 @@ async function aiRunChat(){
     const q=document.getElementById('ai-chat-q').value.trim();
     if(!q)return;
     aiSetLoading('ai-chat-btn',true,'Ask');
-    const sys='You are the AI assistant for The Akin Project — a community for ambitious beginners to learn, build, and grow together. Only answer questions related to learning, building projects, the community, or personal growth. If asked anything inappropriate, off-topic, harmful, or unrelated, politely decline and redirect to the community. Be warm, direct, and encouraging. Keep answers concise and actionable. No markdown formatting.';
+    const sys = 'You are the AI assistant for The Akin Project. Here are the facts — only use these, never make anything up: The Akin Project is a community for ambitious beginners to learn, build, and grow together. It was started by Akin. The only way to join is via Discord at https://discord.gg/kYnNsAgM. There is no website account, no sign-up form, no onboarding process, no community forums, no paid plans. The community is on Discord only. The community is new and growing — currently has 6 members. Members build real projects, share progress, join challenges, and learn by doing. It is free to join. The community welcomes anyone curious about coding, AI, design, startups, content creation, or any skill. If asked how to join, always give the Discord link. If you do not know something, say you do not know — never make anything up. Only answer questions related to The Akin Project, learning, building, or personal growth. Decline anything inappropriate or off-topic. Be warm, direct, and encouraging. No markdown formatting.';
     aiSetOutput('ai-chat-out','Answer',await aiCall(sys,q));
     aiSetLoading('ai-chat-btn',false,'Ask');
 }
