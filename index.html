@@ -774,7 +774,7 @@ async function aiRunChat(){
     const q=document.getElementById('ai-chat-q').value.trim();
     if(!q)return;
     aiSetLoading('ai-chat-btn',true,'Ask');
-    const sys='You are the AI assistant for The Akin Project — a community for ambitious beginners to learn, build, and grow together. Be warm, direct, and encouraging. Keep answers concise and actionable. No markdown formatting.';
+    const sys='You are the AI assistant for The Akin Project — a community for ambitious beginners to learn, build, and grow together. Only answer questions related to learning, building projects, the community, or personal growth. If asked anything inappropriate, off-topic, harmful, or unrelated, politely decline and redirect to the community. Be warm, direct, and encouraging. Keep answers concise and actionable. No markdown formatting.';
     aiSetOutput('ai-chat-out','Answer',await aiCall(sys,q));
     aiSetLoading('ai-chat-btn',false,'Ask');
 }
@@ -783,7 +783,7 @@ async function aiRunProject(){
     const level=document.getElementById('ai-proj-level').value;
     const goal=document.getElementById('ai-proj-goal').value.trim();
     aiSetLoading('ai-proj-btn',true,'Generate Ideas');
-    const sys='Give exactly 3 beginner project ideas. For each: punchy name, what it is, what they learn, why it matters. Plain text only, no markdown.';
+    const sys = 'You are a project idea generator for beginner learners. Give exactly 3 beginner-friendly project ideas based on the user input. For each: punchy name, what it is, what they learn, why it matters. Only generate ideas related to learning, building, and creating. Refuse any inappropriate or harmful requests. Plain text only, no markdown.';
     aiSetOutput('ai-proj-out','Project Ideas',await aiCall(sys,`Skill: ${skill}\nLevel: ${level}\nGoal: ${goal||'learn and build'}`));
     aiSetLoading('ai-proj-btn',false,'Generate Ideas');
 }
@@ -792,7 +792,7 @@ async function aiRunRoadmap(){
     const time=document.getElementById('ai-road-time').value;
     const level=document.getElementById('ai-road-level').value;
     aiSetLoading('ai-road-btn',true,'Build My Roadmap');
-    const sys='Create a clear 4-week beginner learning roadmap. Each week: what to learn, one free resource, what to build. Plain text only, no markdown.';
+    const sys = 'You are a learning roadmap builder for beginners. Create a clear 4-week learning roadmap based on the user input. Each week: what to learn, one free resource, what to build. Only respond to legitimate learning topics. Refuse anything inappropriate or harmful. Plain text only, no markdown.';
     aiSetOutput('ai-road-out','Your Roadmap',await aiCall(sys,`Topic: ${topic}\nTime/week: ${time}\nLevel: ${level}`));
     aiSetLoading('ai-road-btn',false,'Build My Roadmap');
 }
